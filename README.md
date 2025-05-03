@@ -13,3 +13,5 @@ Then, I run the same test using all available cores on the S3 🔥.
 ---
 
 Stay tuned for updates as I explore more chips and challenges! 🛠️🚀
+
+[See the comparison on my Notebook 😊]([https://colab.research.google.com/drive/16LYqo5od1bB_gcz4RM-CVxZpJvxreb2A?usp=sharing](https://colab.research.google.com/drive/16LYqo5od1bB_gcz4RM-CVxZpJvxreb2A#scrollTo=ZzVAL2Pevhip)
