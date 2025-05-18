@@ -1,11 +1,11 @@
 #include <Arduino.h>
 #include <esp_timer.h>
 
-// ===== CONFIGURAÇÕES AJUSTÁVEIS ===== //
-#define ARRAY_SIZE 25200  // Altere aqui para aumentar/diminuir a carga
-#define NUM_RUNS   5     // Número de execuções para calcular a média
-#define RAND_SEED  12345 // Semente fixa para reprodutibilidade
-// ==================================== //
+// ===== CONFIGURABLE SETTINGS ===== //
+#define ARRAY_SIZE 25200   // Change this to increase/decrease the workload
+#define NUM_RUNS   5       // Number of runs to calculate the average
+#define RAND_SEED  12345   // Fixed seed for reproducibility
+// ================================= //
 
 int arr[ARRAY_SIZE];
 
@@ -28,14 +28,14 @@ void setup() {
   Serial.begin(115200);
   randomSeed(RAND_SEED);
 
-  // Pré-aquecimento (execução descartada)
+  // Warm-up run (ignored in measurement)
   for (int i = 0; i < ARRAY_SIZE; i++) arr[i] = random(1000);
   quickSort(arr, 0, ARRAY_SIZE - 1);
 
-  // Medição principal (com média de NUM_RUNS execuções)
+  // Main measurement (average of NUM_RUNS executions)
   uint64_t total_time = 0;
   for (int run = 0; run < NUM_RUNS; run++) {
-    randomSeed(RAND_SEED); // Reset da semente para reprodutibilidade
+    randomSeed(RAND_SEED); // Reset the seed for reproducibility
     for (int i = 0; i < ARRAY_SIZE; i++) arr[i] = random(1000);
 
     uint64_t start = esp_timer_get_time();
@@ -43,7 +43,7 @@ void setup() {
     total_time += esp_timer_get_time() - start;
   }
 
-  Serial.printf("QuickSort para %d elementos | Tempo médio: %llu us\n", 
+  Serial.printf("QuickSort for %d elements | Average time: %llu us\n", 
                 ARRAY_SIZE, total_time / NUM_RUNS);
 }
 

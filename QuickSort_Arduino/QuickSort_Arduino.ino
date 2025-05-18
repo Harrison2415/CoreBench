@@ -1,6 +1,11 @@
-#define ARRAY_SIZE 879
-#define NUM_RUNS   5
-#define RAND_SEED  12345
+// ======================= USER-CONFIGURABLE SETTINGS =======================
+#define ARRAY_SIZE 879 // Size of the array to be sorted.
+#define NUM_RUNS   5 // Number of times the sort will be executed to calculate an average time.
+#define RAND_SEED  12345 // Seed for the random number generator.
+// ==========================================================================
+
+int arr[ARRAY_SIZE];
+
 
 int arr[ARRAY_SIZE];
 
