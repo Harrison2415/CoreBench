@@ -319,7 +319,7 @@ Now that you've seen the results, feel free to test and compare on your own — 
 
 ---
 
-[📊 See the comparison on my Colab Notebook](https://colab.research.google.com/drive/16LYqo5od1bB_gcz4RM-CVxZpJvxreb2A?usp=sharing)
+[📊 See the comparison on my Colab Notebook](https://colab.research.google.com/drive/1ZCS7DJTvhOXI1tfrbw4gNDDlrYB5RjbZ?usp=sharing)
 
 
 If you can't access the Colab, or just want to see the results directly, here's the chart with all the microcontrollers 😊
