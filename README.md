@@ -11,18 +11,17 @@ Currently, due to budget constraints, I’m comparing the following microcontrol
 
 ## Microcontroller Comparison
 
-| Feature               | ESP32 (Xtensa LX6)             | ESP32-S3 (Xtensa LX7)          | ESP32-CAM (Xtensa LX6)         | ESP8266 (Tensilica L106)        | Arduino UNO (ATmega328P)    | Arduino MEGA (ATmega2560)  |
-|-----------------------|-------------------------------|-------------------------------|-------------------------------|-------------------------------|-----------------------------|----------------------------|
-| Clock Speed           | 240 MHz                       | 240 MHz                       | 240 MHz                       | 80 MHz                        | 16 MHz                      | 16 MHz                     |
-| Cores                 | 2                             | 2                             | 1                             | 1                             | 1                           | 1                          |
-| RAM                   | 520 KB                        | 512 KB                        | 520 KB                        | 64 KB                         | 2 KB                        | 8 KB                       |
-| Flash Memory          | 4 MB                          | 16 MB                         | 4 MB                          | 4 MB                          | 32 KB                       | 256 KB                     |
-| EEPROM                | 512 bytes (emulated, programmable) | 384 KB (emulated, programmable) | 512 bytes (emulated, programmable) | 512 bytes (emulated, programmable) | 1 KB                        | 4 KB                       |
-| Digital I/O Pins      | 25                            | 32                            | 10                            | 17                            | 14                          | 54                         |
-| Analog Inputs         | 16                            | 32                            | 7                             | 1                             | 6                           | 16                         |
-| DAC                   | 2                             | 2                             | 2                             | No                            | No                          | No                         |
-| SIMD Support          | Yes                           | Yes                           | Yes                           | No                            | No                          | No                         |
-| Cache                 | Yes                           | Yes                           | Yes                           | No                            | No                          | No                         |
+| Feature               | ESP32 (Xtensa LX6)             | ESP32-S3 (Xtensa LX7)          | ESP32-CAM (Xtensa LX6)         | ESP8266 (Tensilica L106)        | Arduino UNO (ATmega328P)    | Arduino MEGA (ATmega2560)  | ESP32-C3 Super Mini (RISC-V) |
+|-----------------------|-------------------------------|-------------------------------|-------------------------------|-------------------------------|-----------------------------|----------------------------|------------------------------|
+| Clock Speed           | 240 MHz                       | 240 MHz                       | 240 MHz                       | 80 MHz                        | 16 MHz                      | 16 MHz                     | 160 MHz                      |
+| Cores                 | 2                             | 2                             | 2                             | 1                             | 1                           | 1                          | 1                            |
+| RAM                   | 520 KB                        | 512 KB                        | 520 KB                        | 64 KB                         | 2 KB                        | 8 KB                       | 400 KB                       |
+| Flash Memory          | 4 MB                          | 16 MB                         | 4 MB                          | 4 MB                          | 32 KB                       | 256 KB                     | 4 MB                         |
+| Digital I/O Pins      | 25                            | 32                            | 10                            | 17                            | 14                          | 54                         | 11                           |
+| Analog Inputs         | 16                            | 32                            | 7                             | 1                             | 6                           | 16                         | 4                            |
+| DAC "Digital-to-Analog Converter"                   | 2                             | 2                             | 2                             | No                            | No                          | No                         | No                           |
+| SIMD "Single Instruction, Multiple Data" Support          | Yes                           | Yes                           | Yes                           | No                            | No                          | No                         | No                           |
+| Cache                 | Yes                           | Yes                           | Yes                           | No                            | No                          | No                         | Yes                          |
 
 > **Notes:**
 > - The EEPROM on ESP32 series is not a separate physical memory chip but is emulated within the flash memory. The size indicates the maximum usable space for persistent storage.
@@ -196,6 +195,44 @@ Currently, due to budget constraints, I’m comparing the following microcontrol
 
 <!--------------------------------------------------------------------------------------->
 
+<details> <!-- C3-->
+<summary>ESP32-C3 Super Mini (RISC-V)</summary>
+
+### ESP32-C3 Super Mini - Images and graphics
+
+<table>
+  <tr>
+    <td><img src="Images/esp32c3.png" alt="ESP32 Image 1" width="500"/></td>
+    <td><img src="Images/ESP32-C3_Graf.png" alt="ESP32 Image 2" width="800"/></td>
+  </tr>
+</table>
+---
+
+### ESP32-C3 Super Mini (RISC-V) Performance Data
+
+| Chip               | Algorithm | Elements (n) | Runs | Avg Time (µs) |  
+|--------------------|-----------|-------------:|-----:|--------------:|  
+| ESP32-C3 Super Mini | QuickSort |         1000 |    5 |          1361 |  
+| ESP32-C3 Super Mini | QuickSort |         1500 |    5 |          2171 |  
+| ESP32-C3 Super Mini | QuickSort |         2000 |    5 |          3009 |  
+| ESP32-C3 Super Mini | QuickSort |         4000 |    5 |          6829 |  
+| ESP32-C3 Super Mini | QuickSort |        10000 |    5 |         20544 |  
+| ESP32-C3 Super Mini | QuickSort |        20000 |    5 |         51218 |  
+| ESP32-C3 Super Mini | QuickSort |        25000 |    5 |         70646 |  
+| ESP32-C3 Super Mini | QuickSort |        25200 |    5 |         72364 |  
+| ESP32-C3 Super Mini | QuickSort |        26000 |    5 |         72364 |  
+| ESP32-C3 Super Mini | QuickSort |        30000 |    5 |         93642 |  
+| ESP32-C3 Super Mini | QuickSort |        60000 |    5 |        270354 |  
+| ESP32-C3 Super Mini | QuickSort |        62000 |    5 |        296101 |  
+| ESP32-C3 Super Mini | QuickSort |        64000 |    5 |        321231 |  
+| ESP32-C3 Super Mini | QuickSort |        64150 |    5 |        317440 |  
+
+
+</details>
+
+
+<!--------------------------------------------------------------------------------------->
+
 <details> <!-- UNO-->
 <summary>Arduino UNO (ATmega328P)</summary>
 
@@ -266,6 +303,7 @@ Currently, due to budget constraints, I’m comparing the following microcontrol
 
 
 <!--------------------------------------------------------------------------------------->
+
 
 I tested multiple microcontrollers using a single-core version of the code first, gradually increasing the number of elements until reaching the limit — usually defined by when the device would fail or crash due to memory issues (most often, a **stack overflow**). After that, I also tested multi-core performance on supported chips like the ESP32 and ESP32-S3.
 

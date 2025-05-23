@@ -2,7 +2,7 @@
 #include <esp_timer.h>
 
 // ===== CONFIGURABLE SETTINGS ===== //
-#define ARRAY_SIZE 25200   // Change this to increase/decrease the workload
+#define ARRAY_SIZE 64150   // Change this to increase/decrease the workload
 #define NUM_RUNS   5       // Number of runs to calculate the average
 #define RAND_SEED  12345   // Fixed seed for reproducibility
 // ================================= //
